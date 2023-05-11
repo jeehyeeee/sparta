@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>modal</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // set_temp();
+        show_comment();
+      });
+      function save_comment() {
+        let comment = $("#comment").val();
+        let name = $("#name").val();
+
+        console.log(comment);
+        let formData = new FormData();
+        formData.append("comment_give", comment);
+        formData.append("name_give", name);
+
+        fetch("/guestbook", { method: "POST", body: formData })
+          .then((res) => res.json())
+          .then((data) => {
+            alert(data["msg"]);
+            show_comment();
+          });
+      }
+      function show_comment() {
+        fetch("/guestbook")
+          .then((res) => res.json())
+          .then((data) => {
+            let rows = data["result"];
+            // console.log(rows);
+            $("#comment-list").empty();
+            rows.forEach((a) => {
+              let comment = a["comment"];
+              let name = a["name"];
+              // console.log(comment);
+
+              let temp_html = ` <div class="card">
+                                  <div class="card-body">
+                                    <blockquote class="blockquote mb-0">
+                                      <p>${name} : ${comment}</p>
+                                    </blockquote>
+                                  </div>
+                                </div>`;
+              $("#comment-list").append(temp_html);
+            });
+            // alert(data["msg"]);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="image">
+        <img
+          src="https://recipe1.ezmember.co.kr/cache/recipe/2017/02/27/59ccdce3c03388a25dfd16e8f44e44491.jpg"
+          alt="스파게티"
+          style="
+            float: left;
+            width: 497px;
+            height: 500px;
+            border-radius: 15px 0 0 15px;
+          "
+        />
+      </div>
+      <div class="desc">
+        <div class="info">
+          <div class="title">
+            <h2>스파게티</h2>
+            <div class="foodType">양식</div>
+          </div>
+          <p class="review">오늘은 왠지 스파게티가 땡기네요~</p>
+          <br />
+        </div>
+        <div class="scroll" style="overflow-y: scroll; height: 400px">
+          <div class="comment">
+            <form class="comment-box">
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="닉네임"
+                />
+              </div>
+              <div class="form-floating">
+                <textarea
+                  class="form-control"
+                  placeholder="댓글 달기!"
+                  id="comment"
+                ></textarea>
+                <span class="btn">
+                  <button
+                    onclick="save_comment()"
+                    type="button"
+                    class="btn btn-dark"
+                  >
+                    게시
+                  </button>
+                </span>
+              </div>
+            </form>
+          </div>
+          <div class="mycards" id="comment-list">
+            <div class="card">
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <p>넘 맛있어요!</p>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

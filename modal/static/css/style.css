@@ -1,0 +1,62 @@
+.wrapper {
+  background-color: #efefef;
+  border: 1px solid gray;
+  border-radius: 15px;
+  width: 870px;
+  height: 500px;
+  display: flex;
+}
+.image {
+  width: 497px;
+  height: 500px;
+  overflow: hidden;
+}
+.desc {
+  width: 350px;
+}
+.info {
+  padding-left: 10px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+.foodType {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: tomato;
+  padding: 10px;
+}
+
+.review {
+  color: gray;
+  margin: 0px;
+  height: auto;
+}
+
+.comment {
+  width: 373px;
+  border-top: 1px solid black;
+  padding-top: 10px;
+}
+.comment-box {
+  padding-left: 10px;
+}
+.btn-chat:hover {
+  cursor: pointer;
+}
+.comment-example {
+  padding-left: 10px;
+}
+.form-floating {
+  display: flex;
+}
+.btn {
+  margin-left: 4px;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
